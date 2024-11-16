@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using Manager;
@@ -17,9 +18,9 @@ namespace Component
         public float Height => _collisionRect.height;
         public Rect CollisionRect => _collisionRect;
     
-        public UnityAction<GameObject> OnCollisionEnter;
-        public UnityAction<GameObject> OnCollisionExit;
-
+        public event Action<GameObject> OnCollisionEnter;
+        public event Action<GameObject> OnCollisionExit;
+        
         private void Awake()
         {
             AutoSetRect();
@@ -36,11 +37,13 @@ namespace Component
         public virtual void OnEntityCollisionEnter(GameObject other)
         {
             Debug.Log($"{gameObject.name} collided with {other.name}");
+            OnCollisionEnter?.Invoke(other);
         }
 
         public virtual void OnEntityCollisionExit(GameObject other)
         {
             Debug.Log($"{gameObject.name} stopped colliding with {other.name}");
+            OnCollisionExit?.Invoke(other);
         }
     
         [ContextMenu("Auto Set Rect")]

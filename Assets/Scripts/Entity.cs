@@ -62,7 +62,7 @@ namespace Entity
         {
         }
 
-        public void Awake()
+        public virtual void Awake()
         {
             _entityGameObject = gameObject;
             _entityTransform = transform;

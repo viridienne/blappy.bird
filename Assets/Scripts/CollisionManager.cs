@@ -8,7 +8,7 @@ namespace Manager
 {
     public class CollisionManager : BaseSingletonMono<CollisionManager>
 {
-    private HashSet<CollisionComponent> _collisionComponents = new HashSet<CollisionComponent>();
+    private readonly HashSet<CollisionComponent> _collisionComponents = new();
     
     public void RegisterCollisionComponent(CollisionComponent collisionComponent)
     {
@@ -66,6 +66,28 @@ namespace Manager
                 }
             }
         }
+    }
+    
+    public CollisionComponent GetNearestCollisionComponent(CollisionComponent collisionComponent)
+    {
+        var nearestCollisionComponent = collisionComponent;
+        var nearestDistance = float.MaxValue;
+        foreach (var otherCollisionComponent in _collisionComponents)
+        {
+            if (collisionComponent.gameObject.GetInstanceID() == otherCollisionComponent.gameObject.GetInstanceID())
+            {
+                continue;
+            }
+            
+            var distance = Vector3.Distance(collisionComponent.transform.position, otherCollisionComponent.transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestCollisionComponent = otherCollisionComponent;
+            }
+        }
+        
+        return nearestCollisionComponent;
     }
 }
 

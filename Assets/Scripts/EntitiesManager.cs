@@ -7,7 +7,7 @@ namespace Manager
 {
     public class EntitiesManager : BaseSingletonMono<EntitiesManager>
     {
-        private HashSet<IEntity> _entities = new HashSet<IEntity>();
+        private readonly HashSet<IEntity> _entities = new();
     
         public void RegisterEntity(IEntity entity)
         {

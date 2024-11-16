@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class Spawner : MonoBehaviour
 {
@@ -13,6 +15,10 @@ public class Spawner : MonoBehaviour
     {
         _entityPool = GetComponent<EntityPool>();
         
+    }
+
+    private void Start()
+    {
         InvokeRepeating(nameof(Spawn), 0, _spawnRate);
     }
 
