@@ -1,13 +1,71 @@
+using System;
 using System.Collections.Generic;
 using Component;
+using UniRx;
 using UnityEngine;
 
 namespace Manager
 {
     public class CheckPointsManager : BaseSingletonMono<CheckPointsManager>
     {
+        public ReactiveProperty<int> Point { get; private set; }
 
-        private HashSet<CheckpointComponent> _checkpoints = new();
+        private GameState _currentGameState
+        {
+            get
+            {
+                if (GameManager.Instance == null)
+                {
+                    return GameState.Init;
+                }
+
+                return GameManager.Instance.CurrentGameState;
+            }
+        }
+        private readonly HashSet<CheckpointComponent> _checkpoints = new();
+
+        protected override void Awake()
+        {
+            base.Awake();
+            Point = new ReactiveProperty<int>();
+        }
+
+        private void Start()
+        {
+            GameManager.Instance.OnAfterGameStateChanged += OnAfterGameStateChanged;
+            GameManager.Instance.OnBeforeGameStateChanged += OnBeforeGameStateChanged;
+        }
+
+        private void OnBeforeGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.Lose:
+                    if (Point.Value > PlayerPrefs.GetInt("HighScore"))
+                    {
+                        PlayerPrefs.SetInt("HighScore", Point.Value);
+                    }
+                    break;
+            }
+        }
+
+        private void OnAfterGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.Playing:
+                    Point.Value= 0;
+                    break;
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if (GameManager.Instance == null) return;
+            GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
+            GameManager.Instance.OnBeforeGameStateChanged -= OnBeforeGameStateChanged;
+        }
 
         public void RegisterCheckpoint(CheckpointComponent checkpoint)
         {
@@ -46,6 +104,13 @@ namespace Manager
             }
 
             return closestCheckpoint;
+        }
+
+        public void Checkpoint()
+        {
+            if(_currentGameState != GameState.Playing) return;
+            Point.Value++;
+            Debug.Log("Player point: " + Point);
         }
     }
 }

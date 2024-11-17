@@ -40,4 +40,9 @@ public class EntityPool : MonoBehaviour
     {
         Destroy(entity.gameObject);
     }
+    
+    public void ReleaseAll()
+    {
+        _pool.Clear();
+    }
 }

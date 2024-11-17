@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using Manager;
@@ -20,13 +21,14 @@ namespace Component
     
         public event Action<GameObject> OnCollisionEnter;
         public event Action<GameObject> OnCollisionExit;
-        
+        private HashSet<GameObject> _collidedObjects = new();
         private void Awake()
         {
             AutoSetRect();
         }
         public void OnEnable()
         {
+            _collidedObjects.Clear();
             if(CollisionManager.Instance) CollisionManager.Instance.RegisterCollisionComponent(this);
         }
     
@@ -36,12 +38,22 @@ namespace Component
         }
         public virtual void OnEntityCollisionEnter(GameObject other)
         {
+            if (_collidedObjects.Contains(other))
+            {
+                return;
+            }
+            _collidedObjects.Add(other);
             Debug.Log($"{gameObject.name} collided with {other.name}");
             OnCollisionEnter?.Invoke(other);
         }
 
         public virtual void OnEntityCollisionExit(GameObject other)
         {
+            if (_collidedObjects.Contains(other))
+            {
+                _collidedObjects.Remove(other);
+            }
+            else return;
             Debug.Log($"{gameObject.name} stopped colliding with {other.name}");
             OnCollisionExit?.Invoke(other);
         }
@@ -53,6 +65,8 @@ namespace Component
             var scale = transform.lossyScale;
             _collisionRect = new Rect(0, 0, size.x * scale.x, size.y * scale.y);
         }
+        
+        #if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             var position = transform.position;
@@ -62,7 +76,7 @@ namespace Component
             Gizmos.color = Color.green;
             Gizmos.DrawWireSphere(position, _detectDistance);
         }
-    
+        #endif
     }
 
 }

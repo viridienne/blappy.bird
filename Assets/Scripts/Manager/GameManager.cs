@@ -1,4 +1,6 @@
 using System;
+using Sirenix.OdinInspector;
+using UI;
 using UnityEngine;
 
 namespace Manager
@@ -14,13 +16,21 @@ namespace Manager
 
     public class GameManager : BaseSingletonMono<GameManager>
     {
-        public GameState CurrentGameState { get; private set; }
+        [ShowInInspector] public GameState CurrentGameState { get; private set; }
 
         public event Action<GameState> OnBeforeGameStateChanged;
         public event Action<GameState> OnAfterGameStateChanged;
         
+        private void Start()
+        {
+            Debug.Log("Start Game");
+            SetState(GameState.Init);
+            SetState(GameState.Starting);
+        }
+        
         public void SetState(GameState state)
         {
+            Debug.Log($"Before Game State: {state}");
             OnBeforeGameStateChanged?.Invoke(state);
             switch (state)
             {
@@ -40,19 +50,22 @@ namespace Manager
                     HandleLose();
                     break;
             }
-            
+
             CurrentGameState = state;
+            Debug.Log($"After Game State: {state}");
             OnAfterGameStateChanged?.Invoke(state);
         }
         
         void HandleInit()
         {
-        
+            UIManager.Instance.ShowUI(UIKey.Full_MainScreen);
         }
         void HandleStarting()
         {
-        
+            
         }
+
+
         void HandlePlaying()
         {
         
@@ -63,7 +76,17 @@ namespace Manager
         }
         void HandleLose()
         {
-            Debug.LogError("Game Over");
+            Debug.LogError($"Game Over -> high score: {PlayerPrefs.GetInt("HighScore")}");
+            UIManager.Instance.ShowUI(UIKey.Popup_GameOver, ui =>
+            {
+                if (ui is PopupGameOver popupGameOver)
+                {
+                    popupGameOver.OnRetry = ()=>
+                    {
+                        SetState(GameState.Starting);
+                    };
+                }
+            });
         }
         
         public void GameOver()
@@ -74,6 +97,11 @@ namespace Manager
         public void OnPause()
         {
             SetState(GameState.Paused);
+        }
+        
+        public void OnButtonStart()
+        {
+            SetState(GameState.Playing);
         }
     }
 }

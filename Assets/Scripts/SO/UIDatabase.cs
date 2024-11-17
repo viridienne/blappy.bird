@@ -1,11 +1,12 @@
-using System.Collections;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
+using UI;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "UIDatabase", menuName = "Flappy/UI/UIDatabase")]
-public class UIDatabase : ScriptableObject
+public class UIDatabase : SerializedScriptableObject
 {
-    
+    public Dictionary<UIKey, BaseUI> UDictionary = new();
 }
 
 public enum UIKey

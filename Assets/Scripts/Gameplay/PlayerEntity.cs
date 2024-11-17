@@ -14,7 +14,7 @@ namespace Entity
         [SerializeField] private float _gravity = 9.81f;
         [SerializeField] private CollisionComponent _collisionComponent;
         private Vector2 _direction;
-
+        private float _currentGravity;
         public override void Awake()
         {
             base.Awake();
@@ -25,12 +25,38 @@ namespace Entity
         {
             _collisionComponent.OnCollisionEnter -= OnCollision;
         }
-        
+
+        private void Start()
+        {
+            GameManager.Instance.OnAfterGameStateChanged += OnAfterGameStateChanged;
+        }
+
+        private void OnAfterGameStateChanged(GameState state)
+        {
+            switch (state)
+            {
+                case GameState.Playing:
+                    _currentGravity = _gravity;
+                    break;
+                case GameState.Lose:
+                    break;
+                case GameState.Starting:
+                    EntityTransform.position = Vector2.zero;
+                    _currentGravity = 0;
+                    _direction = Vector2.zero;
+                    break;
+            }
+        }
+
         private void OnCollision(GameObject other)
         {
             if (other.CompareTag(TagConstant.Obstacle))
             {
                 GameManager.Instance.GameOver();
+            }
+            else if (other.CompareTag(TagConstant.Checkpoint))
+            {
+                CheckPointsManager.Instance.Checkpoint();
             }
         }
 
@@ -43,7 +69,7 @@ namespace Entity
                 DetectInput();
             }
 
-            _direction.y -= _gravity * _mass * deltaTime;
+            _direction.y -= _currentGravity * _mass * deltaTime;
 
             Move(deltaTime);
         }

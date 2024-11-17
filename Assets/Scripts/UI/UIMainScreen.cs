@@ -1,0 +1,61 @@
+using System;
+using Manager;
+using TMPro;
+using UnityEngine;
+using UniRx;
+
+namespace UI
+{
+    public class UIMainScreen : BaseUI
+    {
+        [SerializeField] private TMP_Text _textScore;
+        [SerializeField] private GameObject _buttonStart;
+        private IDisposable _disposable;
+        public override void Show()
+        {
+            base.Show();
+            GameManager.Instance.OnAfterGameStateChanged += OnAfterGameStateChanged;
+            if (GameManager.Instance.CurrentGameState == GameState.Starting)
+            {
+                _buttonStart.SetActive(true);
+            }
+            
+            _disposable = CheckPointsManager.Instance.Point.Subscribe(SetScore);
+        }
+
+        private void SetScore(int value)
+        {
+            _textScore.SetText("Score: " + value);
+        }
+        public override void Hide()
+        {
+            base.Hide();
+            _disposable?.Dispose();
+            GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
+        }
+
+        private void OnAfterGameStateChanged(GameState obj)
+        {
+            switch (obj)
+            {
+                case GameState.Playing:
+                    _textScore.gameObject.SetActive(true);
+                    _buttonStart.SetActive(false);
+                    break;
+                case GameState.Starting:
+                    _textScore.gameObject.SetActive(false);
+                    _buttonStart.SetActive(true);
+                    break;
+                default:
+                    _buttonStart.SetActive(false);
+                    break;
+            }
+        }
+
+        public void OnButtonStart()
+        {
+            GameManager.Instance.OnButtonStart();
+        }
+    }
+}
+

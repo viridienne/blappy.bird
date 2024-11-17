@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,17 +15,39 @@ public class Spawner : MonoBehaviour
     private void Awake()
     {
         _entityPool = GetComponent<EntityPool>();
-        
     }
 
     private void Start()
     {
-        InvokeRepeating(nameof(Spawn), 0, _spawnRate);
+        GameManager.Instance.OnAfterGameStateChanged += OnAfterGameStateChanged;
     }
 
+    private void OnAfterGameStateChanged(GameState state)
+    {
+        switch (state)
+        {
+            case GameState.Playing:
+                StartSpawn();
+                break;
+            default:
+                StopSpawn();
+                break;
+        }
+    }
+
+    private void StartSpawn()
+    {
+        InvokeRepeating(nameof(Spawn), 0, _spawnRate);
+    }
+    private void StopSpawn()
+    {
+        _entityPool.ReleaseAll();
+        CancelInvoke(nameof(Spawn));
+    }
     private void OnDestroy()
     {
-        CancelInvoke(nameof(Spawn));
+        StopSpawn();
+        if(GameManager.Instance) GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
     }
 
     public void Spawn()
