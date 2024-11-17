@@ -1,7 +1,4 @@
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Manager;
 using UnityEngine;
 
 namespace Component
@@ -10,17 +7,18 @@ namespace Component
     {
         [SerializeField] private float _horizontalGap;
         [SerializeField] private float _gap;
+
         private void OnEnable()
         {
             if (CheckPointsManager.Instance) CheckPointsManager.Instance.RegisterCheckpoint(this);
         }
-        
+
         private void OnDisable()
         {
             if (CheckPointsManager.Instance)
                 CheckPointsManager.Instance.UnregisterCheckpoint(this);
         }
-        
+
         public (Vector2 lower, Vector2 upper) GetGap()
         {
             var pos = transform.position;
@@ -36,6 +34,8 @@ namespace Component
             var right = pos + Vector3.right * _horizontalGap;
             return (left, right);
         }
+
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
@@ -46,6 +46,7 @@ namespace Component
             var (left, right) = GetHorizontalGap();
             Gizmos.DrawLine(left, right);
         }
+#endif
     }
 }
 

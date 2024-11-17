@@ -1,6 +1,8 @@
 using System;
 using Component;
+using Manager;
 using UnityEngine;
+using Utility;
 
 namespace Entity
 {
@@ -26,19 +28,19 @@ namespace Entity
         
         private void OnCollision(GameObject other)
         {
-            if (other.CompareTag("Obstacle"))
+            if (other.CompareTag(TagConstant.Obstacle))
             {
-                Debug.LogError("Game Over");
+                GameManager.Instance.GameOver();
             }
         }
 
         public override void OnUpdate(float deltaTime)
         {
             base.OnUpdate(deltaTime);
-            
-            if (Input.GetKeyDown(KeyCode.Space) && !_autoPilot.IsAutoPilot)
+
+            if (!_autoPilot.IsAutoPilot)
             {
-                Jump();
+                DetectInput();
             }
 
             _direction.y -= _gravity * _mass * deltaTime;
@@ -46,10 +48,17 @@ namespace Entity
             Move(deltaTime);
         }
 
-        // public override void OnFixedUpdate(float fixedDeltaTime)
-        // {
-        //     base.OnFixedUpdate(fixedDeltaTime);
-        // }
+        private void DetectInput()
+        {
+            if (Input.GetKeyDown(KeyCode.Space)) Jump();
+
+            if (Input.touchCount <= 0) return;
+            var touch = Input.GetTouch(0);
+            if (touch.phase == TouchPhase.Began)
+            {
+                Jump();
+            }
+        }
 
         public void Jump()
         {
