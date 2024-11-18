@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using Component;
 using UnityEngine;
@@ -9,7 +7,7 @@ namespace Manager
 {
     public class CollisionManager : BaseSingletonMono<CollisionManager>
     {
-        private readonly HashSet<CollisionComponent> _collisionComponents = new();
+        private readonly List<CollisionComponent> _collisionComponents = new();
 
         public void RegisterCollisionComponent(CollisionComponent collisionComponent)
         {
@@ -29,17 +27,16 @@ namespace Manager
 
         private void Update()
         {
-            foreach (var collisionComponent in _collisionComponents)
+            for (int i = _collisionComponents.Count - 1; i >= 0; i--)
             {
-                foreach (var otherCollisionComponent in _collisionComponents)
+                for (int j = _collisionComponents.Count - 1; j >= 0; j--)
                 {
-                    if (collisionComponent.gameObject.GetInstanceID() ==
-                        otherCollisionComponent.gameObject.GetInstanceID())
+                    var collisionComponent = _collisionComponents[i];
+                    var otherCollisionComponent = _collisionComponents[j];
+                    if (collisionComponent.gameObject.GetInstanceID() == otherCollisionComponent.gameObject.GetInstanceID())
                     {
                         continue;
                     }
-
-                    //check detection distance
                     if (Vector3.Distance(collisionComponent.transform.position,
                             otherCollisionComponent.transform.position) >
                         collisionComponent.DetectDistance)
@@ -47,7 +44,6 @@ namespace Manager
                         continue;
                     }
 
-                    //check if contain layer mask
                     if (collisionComponent.LayerMask !=
                         (collisionComponent.LayerMask | (1 << otherCollisionComponent.gameObject.layer)))
                     {

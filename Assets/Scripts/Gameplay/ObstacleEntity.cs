@@ -1,3 +1,4 @@
+using Manager;
 using UnityEngine;
 
 namespace Entity
@@ -16,6 +17,8 @@ namespace Entity
         public override void OnUpdate(float deltaTime)
         {
             base.OnUpdate(deltaTime);
+            if (GameManager.Instance.CurrentGameState != GameState.Playing) return;
+            
             EntityTransform.Translate(_direction * (_speed * deltaTime));
             
             if (_mainCamera.WorldToViewportPoint(EntityTransform.position).x < 0)

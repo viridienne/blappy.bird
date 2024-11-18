@@ -18,6 +18,7 @@ namespace Manager
     {
         [ShowInInspector] public GameState CurrentGameState { get; private set; }
 
+        public bool IsAutoPilot { get; private set; }
         public event Action<GameState> OnBeforeGameStateChanged;
         public event Action<GameState> OnAfterGameStateChanged;
         
@@ -91,7 +92,10 @@ namespace Manager
         
         public void GameOver()
         {
-            SetState(GameState.Lose);
+            if (CurrentGameState == GameState.Playing)
+            {
+                SetState(GameState.Lose);
+            }
         }
         
         public void OnPause()
@@ -99,9 +103,18 @@ namespace Manager
             SetState(GameState.Paused);
         }
         
-        public void OnButtonStart()
+        public void OnButtonStart(bool isAutoPilot)
         {
+            IsAutoPilot = isAutoPilot;
             SetState(GameState.Playing);
+        }
+        
+        public void OnButtonQuit()
+        {
+            if (CurrentGameState == GameState.Playing)
+            {
+                GameOver();
+            }
         }
     }
 }

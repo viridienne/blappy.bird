@@ -15,6 +15,7 @@ namespace Entity
         [SerializeField] private CollisionComponent _collisionComponent;
         private Vector2 _direction;
         private float _currentGravity;
+        private float _currentMass;
         public override void Awake()
         {
             base.Awake();
@@ -36,27 +37,39 @@ namespace Entity
             switch (state)
             {
                 case GameState.Playing:
+                    _currentMass = _mass;
                     _currentGravity = _gravity;
                     break;
                 case GameState.Lose:
+                    _currentGravity = 0;
+                    _direction = Vector2.zero;
+                    _currentMass = 0;
                     break;
                 case GameState.Starting:
                     EntityTransform.position = Vector2.zero;
                     _currentGravity = 0;
                     _direction = Vector2.zero;
+                    _currentMass = 0;
+                    
+                    gameObject.SetActive(false);
+                    gameObject.SetActive(true);
                     break;
             }
         }
 
         private void OnCollision(GameObject other)
         {
-            if (other.CompareTag(TagConstant.Obstacle))
+            switch (other.tag)
             {
-                GameManager.Instance.GameOver();
-            }
-            else if (other.CompareTag(TagConstant.Checkpoint))
-            {
-                CheckPointsManager.Instance.Checkpoint();
+                case TagConstant.Obstacle:
+                    GameManager.Instance.GameOver();
+                    break;
+                case TagConstant.Checkpoint:
+                    CheckPointsManager.Instance.Checkpoint();
+                    break;
+                case TagConstant.Ground:
+                    GameManager.Instance.GameOver();
+                    break;
             }
         }
 
@@ -69,13 +82,15 @@ namespace Entity
                 DetectInput();
             }
 
-            _direction.y -= _currentGravity * _mass * deltaTime;
+            _direction.y -= _currentGravity * _currentMass * deltaTime;
 
             Move(deltaTime);
         }
 
         private void DetectInput()
         {
+            if (GameManager.Instance is not { CurrentGameState: GameState.Playing }) return;
+            
             if (Input.GetKeyDown(KeyCode.Space)) Jump();
 
             if (Input.touchCount <= 0) return;

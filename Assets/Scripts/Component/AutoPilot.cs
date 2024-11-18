@@ -9,18 +9,13 @@ namespace Component
         [SerializeField] private CollisionComponent _collisionComponent;
         [SerializeField] private PlayerEntity _playerEntity;
         [SerializeField] private float _dangerY;
-        [SerializeField] private bool _isAutoPilot;
         [SerializeField] private float _heightGap;
 
-        public bool IsAutoPilot
-        {
-            get => _isAutoPilot;
-            set => _isAutoPilot = value;
-        }
+        public bool IsAutoPilot => GameManager.Instance != null && GameManager.Instance.IsAutoPilot;
 
         private void Update()
         {
-            if (!_isAutoPilot) return;
+            if (!IsAutoPilot) return;
             if (_playerEntity.EntityTransform.position.y < _dangerY)
             {
                 _playerEntity.Jump();
