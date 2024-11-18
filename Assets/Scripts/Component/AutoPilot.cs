@@ -36,20 +36,21 @@ namespace Component
 
             var nearestCheckPoint = CheckPointsManager.Instance.GetClosestCheckpoint(playerPosition, bounds / 2);
             if (nearestCheckPoint == null) return false;
-            var (lower, upper) = nearestCheckPoint.GetGap();
-            var position = nearestCheckPoint.transform.position;
+            var obstaclePos = nearestCheckPoint.transform.position;
             var horizontalGap = nearestCheckPoint.GetHorizontalGap();
-            // bool isUnder = playerPosition.y + _heightGap < position.y + (lower.y + upper.y) / 2;
-            bool isUnder = playerPosition.y + _heightGap < position.y;
+            bool isUnder = playerPosition.y + _heightGap < obstaclePos.y;
             if (isUnder)
             {
                 return true;
             }
 
-            if (playerPosition.x - _collisionComponent.CollisionRect.width / 2 >= (position.x + horizontalGap.left.x) &&
-                playerPosition.x + _collisionComponent.CollisionRect.width / 2 <= (position.x + horizontalGap.right.x))
+            if (playerPosition.x - _collisionComponent.CollisionRect.width / 2 >= (obstaclePos.x + horizontalGap.left.x) &&
+                playerPosition.x + _collisionComponent.CollisionRect.width / 2 <= (obstaclePos.x + horizontalGap.right.x))
             {
-                if (playerPosition.y < position.y - (_heightGap / 2)) return true;
+                if (playerPosition.y < obstaclePos.y - (_heightGap / 2))
+                {
+                    return true;
+                }
             }
 
             return false;

@@ -110,7 +110,6 @@ namespace Manager
         {
             if(_currentGameState != GameState.Playing) return;
             Point.Value++;
-            Debug.Log("Player point: " + Point);
         }
     }
 }

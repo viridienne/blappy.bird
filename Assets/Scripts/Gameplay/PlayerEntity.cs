@@ -8,6 +8,10 @@ namespace Entity
 {
     public class PlayerEntity : Entity
     {
+        [SerializeField] private float _upAngle = 30;
+        [SerializeField] private float _downAngle = -30;
+        [SerializeField] private Animator _animator;
+        [SerializeField] private Transform _model;
         [SerializeField] private AutoPilot _autoPilot;
         [SerializeField] private float _mass = 5f; //think of it like mass
         [SerializeField] private float _jumpForce = 5f;
@@ -37,15 +41,16 @@ namespace Entity
             switch (state)
             {
                 case GameState.Playing:
+                    _animator.speed = 1;
                     _currentMass = _mass;
                     _currentGravity = _gravity;
                     break;
                 case GameState.Lose:
-                    _currentGravity = 0;
-                    _direction = Vector2.zero;
-                    _currentMass = 0;
+                    _animator.speed = 0;
                     break;
                 case GameState.Starting:
+                    _model.rotation = Quaternion.Euler(0, 0, 0);
+                    _animator.speed = 1;
                     EntityTransform.position = Vector2.zero;
                     _currentGravity = 0;
                     _direction = Vector2.zero;
@@ -69,6 +74,10 @@ namespace Entity
                     break;
                 case TagConstant.Ground:
                     GameManager.Instance.GameOver();
+                    _currentGravity = 0;
+                    _direction = Vector2.zero;
+                    _currentMass = 0;
+                    _model.rotation = Quaternion.Euler(0, 0, _downAngle);
                     break;
             }
         }
@@ -85,6 +94,7 @@ namespace Entity
             _direction.y -= _currentGravity * _currentMass * deltaTime;
 
             Move(deltaTime);
+            SetRotation(_direction.y);
         }
 
         private void DetectInput()
@@ -106,9 +116,21 @@ namespace Entity
             _direction = Vector2.up * _jumpForce;
         }
         
-        void Move(float deltaTime)
+        private void Move(float deltaTime)
         {
             EntityTransform.Translate(_direction * deltaTime);
+        }
+        
+        private void SetRotation(float y)
+        {
+            if(GameManager.Instance.CurrentGameState != GameState.Playing) return;
+            _model.rotation = y switch
+            {
+                0 => Quaternion.Euler(0, 0, 0),
+                > 0 => Quaternion.Euler(0, 0, _upAngle),
+                < 0 => Quaternion.Euler(0, 0, _downAngle),
+                _ => _model.rotation
+            };
         }
     }
 }
