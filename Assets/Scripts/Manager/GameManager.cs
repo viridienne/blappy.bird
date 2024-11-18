@@ -21,7 +21,14 @@ namespace Manager
         public bool IsAutoPilot { get; private set; }
         public event Action<GameState> OnBeforeGameStateChanged;
         public event Action<GameState> OnAfterGameStateChanged;
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            
+            Application.targetFrameRate = 60;
+        }
+
         private void Start()
         {
             Debug.Log("Start Game");

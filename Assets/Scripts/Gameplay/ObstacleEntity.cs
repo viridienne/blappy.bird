@@ -1,3 +1,4 @@
+using Component;
 using Manager;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace Entity
     public class ObstacleEntity : Entity
     {
         private Camera _mainCamera;
+        [SerializeField] private CheckpointComponent _checkpointComponent;
         [SerializeField] private float _speed = 1f;
         [SerializeField] private Vector2 _direction = Vector2.left;
         public override void OnEnable()
@@ -20,8 +22,9 @@ namespace Entity
             if (GameManager.Instance.CurrentGameState != GameState.Playing) return;
             
             EntityTransform.Translate(_direction * (_speed * deltaTime));
-            
-            if (_mainCamera.WorldToViewportPoint(EntityTransform.position).x < 0)
+
+            var horGap = _checkpointComponent.GetHorizontalGap();
+            if (_mainCamera.WorldToViewportPoint(horGap.right).x < 0)
             {
                 Release();
             }
