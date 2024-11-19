@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _checkpointComponent: {fileID: 5651060828276983138}
-  _speed: 5
+  _speed: 3
   _direction: {x: -1, y: 0}
 --- !u!1001 &2187536927023258064
 PrefabInstance:

@@ -470,7 +470,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 886060607}
-  _speed: 5
+  _speed: 3
 --- !u!1 &1948718418
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,7 +532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1073a519950e49d49967d2eea19dac33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spawnRate: 1
+  _spawnRate: 1.3
   _spawnRange: {x: -2, y: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
