@@ -122,16 +122,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!4 &600387455 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2715971195685511046, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-  m_PrefabInstance: {fileID: 1256084773}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &600387456 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 6191367017526128676, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-  m_PrefabInstance: {fileID: 1256084773}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &886060605
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,14 +214,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2007709773759801352, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-      propertyPath: _model
-      value: 
-      objectReference: {fileID: 600387455}
-    - target: {fileID: 2007709773759801352, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-      propertyPath: _animator
-      value: 
-      objectReference: {fileID: 600387456}
     - target: {fileID: 5609260037918457933, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -275,18 +257,6 @@ PrefabInstance:
     - target: {fileID: 7021417641890397146, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7297370449631201243, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-      propertyPath: m_SortingOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100993985061557116, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-      propertyPath: _dangerY
-      value: -5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9100993985061557116, guid: b82406d4f51748446b551d7dae9bc511, type: 3}
-      propertyPath: _heightGap
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -356,7 +326,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 1
-  m_Size: {x: 15, y: 15}
+  m_Size: {x: 8, y: 12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -371,7 +341,7 @@ Transform:
   m_GameObject: {fileID: 1734421195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.28, z: 0}
+  m_LocalPosition: {x: 0, y: -0.17, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
