@@ -14,7 +14,7 @@ namespace Manager
     public class SceneLoader : BaseSingletonMono<SceneLoader>
     {
         [SerializeField] private SceneData[] _scenes;
-       
+        public event Action<string> OnSceneLoaded; 
         private async void Start()
         {
             for (int i = 0; i < _scenes.Length; i++)
@@ -53,6 +53,7 @@ namespace Manager
                 }
                 await Task.Yield();
             }
+            OnSceneLoaded?.Invoke(sceneData.SceneName);
         }
     }
 }

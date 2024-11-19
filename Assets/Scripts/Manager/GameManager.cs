@@ -38,9 +38,23 @@ namespace Manager
         {
             Debug.Log("Start Game");
             SetState(GameState.Init);
-            SetState(GameState.Starting);
+            SceneLoader.Instance.OnSceneLoaded += OnSceneLoaded;
         }
-        
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+            if(SceneLoader.Instance) SceneLoader.Instance.OnSceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(string scene)
+        {
+            if (scene == "Gameplay")
+            {
+                SetState(GameState.Starting);
+            }
+        }
+
         public void SetState(GameState state)
         {
             Debug.Log($"Before Game State: {state}");
@@ -93,7 +107,6 @@ namespace Manager
         {
             if(IsAutoPilot) IsAutoPilot = false;
             AudioManager.StopAllMusic();
-            Debug.LogError($"Game Over -> high score: {PlayerPrefs.GetInt("HighScore")}");
             UIManager.Instance.ShowUI(UIKey.Popup_GameOver, ui =>
             {
                 AudioManager.PlaySound(_loseSound);
