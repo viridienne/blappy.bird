@@ -1,4 +1,6 @@
+using System;
 using Manager;
+using UniRx;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,7 +12,7 @@ namespace Entity
         [SerializeField] private Vector2 _spawnRange = new Vector2(-1, 1);
     
         private EntityPool _entityPool;
-    
+        private IDisposable _spawnDisposable;
         private void Awake()
         {
             _entityPool = GetComponent<EntityPool>();
@@ -39,11 +41,12 @@ namespace Entity
 
         private void StartSpawn()
         {
-            InvokeRepeating(nameof(Spawn), 0, _spawnRate);
+            _spawnDisposable = Observable.Interval(TimeSpan.FromSeconds(_spawnRate))
+                .Subscribe(_ => Spawn());
         }
         private void StopSpawn()
         {
-            CancelInvoke(nameof(Spawn));
+            _spawnDisposable?.Dispose();
         }
         
         private void ReleaseAll()

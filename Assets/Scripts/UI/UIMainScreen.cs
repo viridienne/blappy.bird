@@ -21,7 +21,7 @@ namespace UI
         public override void Show()
         {
             base.Show();
-            GameManager.Instance.OnAfterGameStateChanged += OnAfterGameStateChanged;
+            GameManager.Instance.OnBeforeGameStateChanged += OnAfterGameStateChanged;
             if (GameManager.Instance.CurrentGameState == GameState.Starting)
             {
                 _startPhase.SetActive(true);
@@ -38,7 +38,8 @@ namespace UI
         private void OnDisable()
         {
             _disposable?.Dispose();
-            GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
+            GameManager.Instance.OnBeforeGameStateChanged -= OnAfterGameStateChanged;
+            if(_buttonQuitTween.isAlive) _buttonQuitTween.Stop();
         }
 
         private void OnAfterGameStateChanged(GameState obj)
@@ -55,6 +56,10 @@ namespace UI
                     {
                         PlayButtonQuitAnimation();
                     }
+                    else
+                    {
+                        _buttonQuit.gameObject.SetActive(false);
+                    }
                     break;
                 case GameState.Starting:
                     _startPhase.SetActive(true);
@@ -67,11 +72,14 @@ namespace UI
             }
         }
         
+        private Tween _buttonQuitTween;
+        
         [Button]
         public void PlayButtonQuitAnimation()
         {
+            _buttonQuit.gameObject.SetActive(true);
             _buttonQuit.localRotation = quaternion.Euler(0, 0, 90);
-            Tween.Rotation(_buttonQuit, Quaternion.identity, _duration, _curve, startDelay: 2f);
+            _buttonQuitTween = Tween.Rotation(_buttonQuit, Quaternion.identity, _duration, _curve, startDelay: 2f);
         }
 
         public void OnButtonStart()

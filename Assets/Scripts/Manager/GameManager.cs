@@ -57,7 +57,6 @@ namespace Manager
 
         public void SetState(GameState state)
         {
-            Debug.Log($"Before Game State: {state}");
             OnBeforeGameStateChanged?.Invoke(state);
             switch (state)
             {
@@ -79,7 +78,6 @@ namespace Manager
             }
 
             CurrentGameState = state;
-            Debug.Log($"After Game State: {state}");
             OnAfterGameStateChanged?.Invoke(state);
         }
         

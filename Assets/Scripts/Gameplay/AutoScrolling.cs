@@ -40,6 +40,7 @@ public class AutoScrolling : MonoBehaviour
 
     public void SetScrollSpeed(float speed)
     {
+        if(Math.Abs(_material.GetVector(ScrollSpeed).x - speed) < 0.1f) return;
         _material.SetVector(ScrollSpeed, new Vector4(speed, 0, 0, 0));
     }
 }
