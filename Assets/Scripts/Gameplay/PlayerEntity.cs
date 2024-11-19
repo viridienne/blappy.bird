@@ -1,5 +1,6 @@
 using System;
 using Component;
+using JSAM;
 using Manager;
 using UnityEngine;
 using Utility;
@@ -8,15 +9,23 @@ namespace Entity
 {
     public class PlayerEntity : Entity
     {
+        [SerializeField] private Transform _model;
+        [Header("Settings")]
         [SerializeField] private float _upAngle = 30;
         [SerializeField] private float _downAngle = -30;
-        [SerializeField] private Animator _animator;
-        [SerializeField] private Transform _model;
-        [SerializeField] private AutoPilot _autoPilot;
         [SerializeField] private float _mass = 5f; //think of it like mass
         [SerializeField] private float _jumpForce = 5f;
         [SerializeField] private float _gravity = 9.81f;
+        
+        [Header("Components")]
+        [SerializeField] private Animator _animator;
+        [SerializeField] private AutoPilot _autoPilot;
         [SerializeField] private CollisionComponent _collisionComponent;
+        
+        [Header("Sound")]
+        [SerializeField] private SoundFileObject _jumpSound;
+        [SerializeField] private SoundFileObject _collisionSound;
+        
         private Vector2 _direction;
         private float _currentGravity;
         private float _currentMass;
@@ -41,6 +50,7 @@ namespace Entity
             switch (state)
             {
                 case GameState.Playing:
+                    _playedCollisionSound = false;
                     _animator.speed = 1;
                     _currentMass = _mass;
                     _currentGravity = _gravity;
@@ -62,17 +72,21 @@ namespace Entity
             }
         }
 
+        private bool _playedCollisionSound;
+
         private void OnCollision(GameObject other)
         {
             switch (other.tag)
             {
                 case TagConstant.Obstacle:
+                    PlayCollisionSound();
                     GameManager.Instance.GameOver();
                     break;
                 case TagConstant.Checkpoint:
                     CheckPointsManager.Instance.Checkpoint();
                     break;
                 case TagConstant.Ground:
+                    PlayCollisionSound();
                     GameManager.Instance.GameOver();
                     _currentGravity = 0;
                     _direction = Vector2.zero;
@@ -82,6 +96,12 @@ namespace Entity
             }
         }
 
+        private void PlayCollisionSound()
+        {
+            if (_playedCollisionSound) return;
+            AudioManager.PlaySound(_collisionSound);
+            _playedCollisionSound = true;
+        }
         public override void OnUpdate(float deltaTime)
         {
             base.OnUpdate(deltaTime);
@@ -114,6 +134,7 @@ namespace Entity
         public void Jump()
         {
             _direction = Vector2.up * _jumpForce;
+            AudioManager.PlaySound(_jumpSound);
         }
         
         private void Move(float deltaTime)

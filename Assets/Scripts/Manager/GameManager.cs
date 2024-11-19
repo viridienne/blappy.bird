@@ -1,4 +1,5 @@
 using System;
+using JSAM;
 using Sirenix.OdinInspector;
 using UI;
 using UnityEngine;
@@ -16,6 +17,10 @@ namespace Manager
 
     public class GameManager : BaseSingletonMono<GameManager>
     {
+        [Header("Sound")]
+        [SerializeField] private SoundFileObject _loseSound;
+        [SerializeField] private MusicFileObject _mainMenuMusic;
+        [SerializeField] private MusicFileObject _gameplayMusic;
         [ShowInInspector] public GameState CurrentGameState { get; private set; }
 
         public bool IsAutoPilot { get; private set; }
@@ -70,13 +75,15 @@ namespace Manager
         }
         void HandleStarting()
         {
-            
+            AudioManager.StopAllMusic();
+            AudioManager.PlayMusic(_mainMenuMusic);
         }
 
 
         void HandlePlaying()
         {
-        
+            AudioManager.StopAllMusic();
+            AudioManager.PlayMusic(_gameplayMusic);
         }
         void HandlePaused()
         {
@@ -84,9 +91,12 @@ namespace Manager
         }
         void HandleLose()
         {
+            if(IsAutoPilot) IsAutoPilot = false;
+            AudioManager.StopAllMusic();
             Debug.LogError($"Game Over -> high score: {PlayerPrefs.GetInt("HighScore")}");
             UIManager.Instance.ShowUI(UIKey.Popup_GameOver, ui =>
             {
+                AudioManager.PlaySound(_loseSound);
                 if (ui is PopupGameOver popupGameOver)
                 {
                     popupGameOver.OnRetry = ()=>

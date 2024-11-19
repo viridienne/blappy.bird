@@ -229,15 +229,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 039f91257fe4724459527b58b095a9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _model: {fileID: 2715971195685511046}
   _upAngle: 30
   _downAngle: -30
-  _animator: {fileID: 6191367017526128676}
-  _model: {fileID: 2715971195685511046}
-  _autoPilot: {fileID: 9100993985061557116}
   _mass: 3
   _jumpForce: 8
   _gravity: 9.8
+  _animator: {fileID: 6191367017526128676}
+  _autoPilot: {fileID: 9100993985061557116}
   _collisionComponent: {fileID: 8041038891236756978}
+  _jumpSound: {fileID: 11400000, guid: 9a83bef517b44b94fa28d59ce15f60b4, type: 2}
+  _collisionSound: {fileID: 11400000, guid: 8782b81df7f908040ae42f5f74ed3afc, type: 2}
 --- !u!114 &9100993985061557116
 MonoBehaviour:
   m_ObjectHideFlags: 0

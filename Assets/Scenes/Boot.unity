@@ -431,6 +431,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ed4eb2d470dcde4e97f86962ee2d8bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _checkpointSound: {fileID: 11400000, guid: 61cf8247ed90ba84d9082d351a42332a, type: 2}
 --- !u!4 &794646085
 Transform:
   m_ObjectHideFlags: 0
@@ -595,6 +596,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bca903784492104c84836ad59965ff5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _loseSound: {fileID: 11400000, guid: 99c27b26c4db39b4c864041bc0dbd5e3, type: 2}
+  _mainMenuMusic: {fileID: 11400000, guid: 42dc3d02d0af72648bda23982fc2556e, type: 2}
+  _gameplayMusic: {fileID: 11400000, guid: 13ac50f069afa574aa353cfaf619444c, type: 2}
+--- !u!1 &1885091143
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1885091144}
+  - component: {fileID: 1885091145}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1885091144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885091143}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1885091145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885091143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7241a3e106230140bd9d59ff2d17ccd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  library: {fileID: 11400000, guid: 25b843f191d1fc844be8332cabef5ade, type: 2}
+  listener: {fileID: 965478608}
 --- !u!1 &1951379885
 GameObject:
   m_ObjectHideFlags: 0
@@ -805,3 +855,4 @@ SceneRoots:
   - {fileID: 1984991482}
   - {fileID: 563440331}
   - {fileID: 419165038}
+  - {fileID: 1885091144}

@@ -21,7 +21,7 @@ public class AutoScrolling : MonoBehaviour
 
     private void OnDisable()
     {
-        GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
+        if (GameManager.Instance) GameManager.Instance.OnAfterGameStateChanged -= OnAfterGameStateChanged;
     }
 
     private void OnAfterGameStateChanged(GameState state)

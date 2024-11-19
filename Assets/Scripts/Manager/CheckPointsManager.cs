@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Component;
+using JSAM;
 using UniRx;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ namespace Manager
 {
     public class CheckPointsManager : BaseSingletonMono<CheckPointsManager>
     {
+        [SerializeField] private SoundFileObject _checkpointSound;
         public ReactiveProperty<int> Point { get; private set; }
 
         private GameState _currentGameState
@@ -110,6 +112,7 @@ namespace Manager
         {
             if(_currentGameState != GameState.Playing) return;
             Point.Value++;
+            AudioManager.PlaySound(_checkpointSound);
         }
     }
 }
