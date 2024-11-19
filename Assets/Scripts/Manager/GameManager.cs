@@ -36,7 +36,6 @@ namespace Manager
 
         private void Start()
         {
-            Debug.Log("Start Game");
             SetState(GameState.Init);
             SceneLoader.Instance.OnSceneLoaded += OnSceneLoaded;
         }

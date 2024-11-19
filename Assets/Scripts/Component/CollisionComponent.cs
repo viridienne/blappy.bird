@@ -43,7 +43,7 @@ namespace Component
                 return;
             }
             _collidedObjects.Add(other);
-            Debug.Log($"{gameObject.name} collided with {other.name}");
+            // Debug.Log($"{gameObject.name} collided with {other.name}");
             OnCollisionEnter?.Invoke(other);
         }
 
@@ -54,7 +54,7 @@ namespace Component
                 _collidedObjects.Remove(other);
             }
             else return;
-            Debug.Log($"{gameObject.name} stopped colliding with {other.name}");
+            // Debug.Log($"{gameObject.name} stopped colliding with {other.name}");
             OnCollisionExit?.Invoke(other);
         }
     

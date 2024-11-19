@@ -41,6 +41,7 @@ namespace Entity
 
         private void StartSpawn()
         {
+            Spawn();
             _spawnDisposable = Observable.Interval(TimeSpan.FromSeconds(_spawnRate))
                 .Subscribe(_ => Spawn());
         }

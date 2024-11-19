@@ -1,0 +1,133 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UI
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 1024
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 2
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_IgnorePlatformSupport: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 8
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: e22c28124c8578b42b3d227d66eeca7b, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+    packedSpriteRenderDataKeys:
+    - f6d6ba3124670164fba775ac2ab492fc: 21300000
+    - bbb4a17173d79914e87d5ff2ef255f1f: 21300000
+    - 749aeba15c8cb4a448b9bbc59c63fba1: 21300000
+    - 384c9703812c4114289cf75751962eae: 21300000
+    - 9ece482374f0bcc41bdd17c448e975a2: 21300000
+    - a37e80539775c374092ca6ca3ef48c5e: 21300000
+    - c101299419fceca459e6ff238a401563: 21300000
+    - 7bc385f4dff686446ba565bd15557310: 21300000
+    - 340b8e251eaa4f741b0f754bedfa3b14: 21300000
+    - 6a23bc95f53b1424593bd8856dd3c9c6: 21300000
+    - 0be1d3460bbc7c94da062e6d926053c8: 21300000
+    - 41468db6fb39886418987c12999a5b76: 21300000
+    - df9370d71c6b0514db92745e75812aeb: 21300000
+    - 29602fb87a47da6428a3d086a4d2fc3f: 21300000
+    - 96b1e6d8668a56f4bb7c1938cfa9bf07: 21300000
+    - c371447963ff28442bc962ac32913500: 21300000
+    - 619030a9de6031741ba5eb6eb8fd8f7e: 21300000
+    - bcdd9eaacbb5c9e41bee3f980e925cc1: 21300000
+    - 2538b0fa47a342a4796c951aaa2c1087: 21300000
+    - 610b4a2b12a398643bbcc812656dfeb4: 21300000
+    - 50b7440c02ea5b54d8647b6178fad135: 21300000
+    - 69ffd04cef6a695409b55b9d3e8f607c: 21300000
+    - ea3a5fbc4e8c4fa459cede6ddf9ea1f4: 21300000
+    - c49a163f6c471ae4ba1a43b5363045d2: 21300000
+    - f7fdd36f23b72034bb526772ad16bf79: 21300000
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: f6d6ba3124670164fba775ac2ab492fc, type: 3}
+  - {fileID: 21300000, guid: bbb4a17173d79914e87d5ff2ef255f1f, type: 3}
+  - {fileID: 21300000, guid: 749aeba15c8cb4a448b9bbc59c63fba1, type: 3}
+  - {fileID: 21300000, guid: 384c9703812c4114289cf75751962eae, type: 3}
+  - {fileID: 21300000, guid: 9ece482374f0bcc41bdd17c448e975a2, type: 3}
+  - {fileID: 21300000, guid: a37e80539775c374092ca6ca3ef48c5e, type: 3}
+  - {fileID: 21300000, guid: c101299419fceca459e6ff238a401563, type: 3}
+  - {fileID: 21300000, guid: 7bc385f4dff686446ba565bd15557310, type: 3}
+  - {fileID: 21300000, guid: 340b8e251eaa4f741b0f754bedfa3b14, type: 3}
+  - {fileID: 21300000, guid: 6a23bc95f53b1424593bd8856dd3c9c6, type: 3}
+  - {fileID: 21300000, guid: 0be1d3460bbc7c94da062e6d926053c8, type: 3}
+  - {fileID: 21300000, guid: 41468db6fb39886418987c12999a5b76, type: 3}
+  - {fileID: 21300000, guid: df9370d71c6b0514db92745e75812aeb, type: 3}
+  - {fileID: 21300000, guid: 29602fb87a47da6428a3d086a4d2fc3f, type: 3}
+  - {fileID: 21300000, guid: 96b1e6d8668a56f4bb7c1938cfa9bf07, type: 3}
+  - {fileID: 21300000, guid: c371447963ff28442bc962ac32913500, type: 3}
+  - {fileID: 21300000, guid: 619030a9de6031741ba5eb6eb8fd8f7e, type: 3}
+  - {fileID: 21300000, guid: bcdd9eaacbb5c9e41bee3f980e925cc1, type: 3}
+  - {fileID: 21300000, guid: 2538b0fa47a342a4796c951aaa2c1087, type: 3}
+  - {fileID: 21300000, guid: 610b4a2b12a398643bbcc812656dfeb4, type: 3}
+  - {fileID: 21300000, guid: 50b7440c02ea5b54d8647b6178fad135, type: 3}
+  - {fileID: 21300000, guid: 69ffd04cef6a695409b55b9d3e8f607c, type: 3}
+  - {fileID: 21300000, guid: ea3a5fbc4e8c4fa459cede6ddf9ea1f4, type: 3}
+  - {fileID: 21300000, guid: c49a163f6c471ae4ba1a43b5363045d2, type: 3}
+  - {fileID: 21300000, guid: f7fdd36f23b72034bb526772ad16bf79, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - BirdSelectScreen
+  - GoldCrown
+  - ScoreBackground
+  - LeaderboardButton
+  - Avatar2
+  - Score-11-19-2024
+  - BirdSelectButton
+  - SilverCrown
+  - EmptyBtn2
+  - Fb_Button
+  - BronzeCrown
+  - RightArrow
+  - stop
+  - G+Button
+  - Blappy-Bird-11-19-2024
+  - LeftArrow
+  - Bg
+  - Trophy
+  - BgLeaderboardName
+  - EmptyBtn3
+  - LeaderboardScreen
+  - Avatar1
+  - Continue
+  - High-Score-11-19-2024
+  - EmptyBtn1
+  m_RenderDataMap: {}
+  m_Tag: UI
+  m_IsVariant: 0

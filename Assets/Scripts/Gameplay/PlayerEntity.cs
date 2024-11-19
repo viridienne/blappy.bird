@@ -2,6 +2,7 @@ using System;
 using Component;
 using JSAM;
 using Manager;
+using UniRx;
 using UnityEngine;
 using Utility;
 
@@ -50,10 +51,13 @@ namespace Entity
             switch (state)
             {
                 case GameState.Playing:
-                    _playedCollisionSound = false;
-                    _animator.speed = 1;
-                    _currentMass = _mass;
-                    _currentGravity = _gravity;
+                    Observable.Timer(TimeSpan.FromSeconds(0.1f)).Subscribe(_ =>
+                    {
+                        _playedCollisionSound = false;
+                        _animator.speed = 1;
+                        _currentMass = _mass;
+                        _currentGravity = _gravity;
+                    });
                     break;
                 case GameState.Lose:
                     _animator.speed = 0;
