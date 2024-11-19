@@ -26,7 +26,7 @@ namespace UI
 
         private void SetScore(int value)
         {
-            _textScore.SetText("Score: " + value);
+            _textScore.SetText(value.ToString());
         }
         public override void Hide()
         {

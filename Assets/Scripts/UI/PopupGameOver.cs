@@ -13,8 +13,8 @@ namespace UI
         public override void Show()
         {
             base.Show();
-            _textScore.SetText("Score: "+CheckPointsManager.Instance.Point.Value);
-            _textHighScore.SetText("Highest Score: " +PlayerPrefs.GetInt("HighScore"));
+            _textScore.SetText(CheckPointsManager.Instance.Point.Value.ToString());
+            _textHighScore.SetText(PlayerPrefs.GetInt("HighScore").ToString());
         }
 
         public void OnButtonRetry()
